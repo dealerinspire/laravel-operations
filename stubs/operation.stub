@@ -1,0 +1,13 @@
+<?php
+
+namespace App\Operations;
+
+use DealerInspire\Operations\Operation;
+
+class DummyOperation extends Operation
+{
+    public function run()
+    {
+        // TODO: Implement run method
+    }
+}

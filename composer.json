@@ -1,0 +1,42 @@
+{
+    "name": "dealerinspire/laravel-operations",
+    "description": "Operations allow you to schedule your jobs in a programmatic, database-driven way",
+    "version": "v0.1.0",
+    "keywords": [
+        "laravel-operations",
+        "operations",
+        "jobs",
+        "laravel"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.1",
+        "laravel/framework": "~5.8"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^3.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "DealerInspire\\Operations\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DealerInspire\\Operations\\Tests\\": "tests"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "DealerInspire\\Operations\\OperationServiceProvider"
+            ],
+            "aliases": {
+                "Operator": "DealerInspire\\Operations\\Facades\\Operations"
+            }
+        }
+    }
+}
