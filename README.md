@@ -67,7 +67,7 @@ $operator->queue();
 
 Any operation that has a `should_run_at` timestamp which is in the past and has a null `started_run_at` value (and also hasn't been deleted) will be put into your job queue.
 
-An operation's `started_run_at` timestamp will be set to the current time as soon as it is placed into your queue (not when the job actually beings getting processed by a worker). Once the operation has been run by a worker the `finished_run_at` timestamp will be set.
+An operation's `started_run_at` timestamp will be set to the current time as soon as it is placed into your queue (not when the job actually begins getting processed by a worker). Once the operation has been run by a worker the `finished_run_at` timestamp will be set.
 
 You can quickly create new operations (which will be placed in your `App\Operations` directory) by running the `make:operation`.
 
