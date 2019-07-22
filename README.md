@@ -84,6 +84,10 @@ More in-depth information on best practices and how to use operations effectivel
  - [Creating Your First Operation](/docs/first-operation.md)
  - [How to Queue Operations](/docs/queueing.md)
  - [Handling Failures Gracefully](/docs/failing.md)
+ 
+Once you're familiar with using operations, check out some these docs on more advanced features.
+
+ - [Queue Hook Function](/docs/queue-hook.md)
 
 ## License
 
