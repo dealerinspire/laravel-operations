@@ -8,6 +8,12 @@ class ExampleOperation extends Operation
 {
     protected $hasRun = false;
 
+    public function queue()
+    {
+        $this->hooked_into_queue = true;
+        $this->save();
+    }
+
     public function run()
     {
         $this->hasRun = true;
@@ -16,5 +22,10 @@ class ExampleOperation extends Operation
     public function hasRun(): bool
     {
         return $this->hasRun;
+    }
+
+    public function hookedIntoQueue(): bool
+    {
+        return $this->hooked_into_queue;
     }
 }

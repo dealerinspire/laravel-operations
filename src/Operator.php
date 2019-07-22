@@ -13,6 +13,10 @@ final class Operator
                 $operation->started_run_at = Carbon::now();
                 $operation->save();
 
+                if (method_exists($operation, 'queue')) {
+                    $operation->queue();
+                }
+
                 OperationJob::dispatch($operation);
             });
         }

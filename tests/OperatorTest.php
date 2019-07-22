@@ -102,4 +102,21 @@ class OperatorTest extends TestCase
 
         $this->assertNull($exampleOperation->fresh()->started_run_at);
     }
+
+    /** @test */
+    public function it_calls_an_operations_queue_event_when_event_is_queued()
+    {
+        $exampleOperation = new ExampleOperation();
+        $exampleOperation->should_run_at = Carbon::now()->subMinutes(5);
+        $exampleOperation->save();
+
+        $pendingOperation = new ExampleOperation();
+        $pendingOperation->should_run_at = Carbon::now()->addMinutes(5);
+        $pendingOperation->save();
+
+        Operator::queue();
+
+        $this->assertTrue($exampleOperation->fresh()->hookedIntoQueue());
+        $this->assertFalse($pendingOperation->fresh()->hookedIntoQueue());
+    }
 }
