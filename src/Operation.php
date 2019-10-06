@@ -2,6 +2,7 @@
 
 namespace DealerInspire\Operations;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use DealerInspire\Operations\Exceptions\OperationStoppedException;
@@ -45,5 +46,10 @@ abstract class Operation extends Model
     public static function schedule($shouldRunAt, $attributes = [])
     {
         static::create(array_merge(['should_run_at' => $shouldRunAt], $attributes));
+    }
+
+    public static function dispatch($attributes = [])
+    {
+        static::schedule(Carbon::now(), $attributes);
     }
 }

@@ -75,4 +75,27 @@ class OperationTest extends TestCase
         $this->assertEquals(2500, $operation->value);
         $this->assertEquals('Custom Columns', $operation->message);
     }
+
+    /** @test */
+    public function it_can_dispatch_itself_which_schedules_it_to_run_now()
+    {
+        ExampleOperation::dispatch();
+
+        $operation = ExampleOperation::first();
+        $this->assertEquals(Carbon::now(), $operation->should_run_at);
+    }
+
+    /** @test */
+    public function it_can_dispatch_itself_to_run_now_with_custom_columns()
+    {
+        ColumnOperation::dispatch([
+            'value' => 5000,
+            'message' => 'Dispatching Operations',
+        ]);
+
+        $operation = ColumnOperation::first();
+        $this->assertEquals(Carbon::now(), $operation->should_run_at);
+        $this->assertEquals(5000, $operation->value);
+        $this->assertEquals('Dispatching Operations', $operation->message);
+    }
 }
