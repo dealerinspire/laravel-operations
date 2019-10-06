@@ -52,4 +52,15 @@ abstract class Operation extends Model
     {
         return static::schedule(Carbon::now(), $attributes);
     }
+
+    public static function dispatchNow($attributes = [])
+    {
+        $operation = static::dispatch($attributes);
+
+        $operation->started_run_at = Carbon::now();
+
+        (new OperationJob($operation))->handle();
+
+        return $operation;
+    }
 }

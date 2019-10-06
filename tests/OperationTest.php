@@ -94,4 +94,37 @@ class OperationTest extends TestCase
         $this->assertEquals(5000, $operation->value);
         $this->assertEquals('Dispatching Operations', $operation->message);
     }
+
+    /** @test */
+    public function it_can_dispatch_itself_concurrently()
+    {
+        $operation = ExampleOperation::dispatchNow();
+
+        $this->assertTrue($operation->hasRun());
+
+        // Ensure that the database record has all of the timestamps set correctly.
+        $operation = ExampleOperation::first();
+        $this->assertEquals(Carbon::now(), $operation->should_run_at);
+        $this->assertEquals(Carbon::now(), $operation->started_run_at);
+        $this->assertEquals(Carbon::now(), $operation->finished_run_at);
+    }
+
+    /** @test */
+    public function it_can_dispatch_itself_concurrently_with_custom_columns()
+    {
+        $operation = ColumnOperation::dispatchNow([
+            'value' => 1234,
+            'message' => 'Concurrency',
+        ]);
+
+        $this->assertTrue($operation->hasRun());
+
+        // Ensure that the database record has all of the timestamps set correctly.
+        $operation = ColumnOperation::first();
+        $this->assertEquals(Carbon::now(), $operation->should_run_at);
+        $this->assertEquals(Carbon::now(), $operation->started_run_at);
+        $this->assertEquals(Carbon::now(), $operation->finished_run_at);
+        $this->assertEquals(1234, $operation->value);
+        $this->assertEquals('Concurrency', $operation->message);
+    }
 }
