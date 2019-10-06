@@ -45,11 +45,11 @@ abstract class Operation extends Model
 
     public static function schedule($shouldRunAt, $attributes = [])
     {
-        static::create(array_merge(['should_run_at' => $shouldRunAt], $attributes));
+        return static::create(array_merge(['should_run_at' => $shouldRunAt], $attributes));
     }
 
     public static function dispatch($attributes = [])
     {
-        static::schedule(Carbon::now(), $attributes);
+        return static::schedule(Carbon::now(), $attributes);
     }
 }

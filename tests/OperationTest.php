@@ -56,21 +56,19 @@ class OperationTest extends TestCase
     /** @test */
     public function it_can_schedule_itself()
     {
-        ExampleOperation::schedule(Carbon::now()->addDay());
+        $operation = ExampleOperation::schedule(Carbon::now()->addDay());
 
-        $operation = ExampleOperation::first();
         $this->assertEquals(Carbon::now()->addDay(), $operation->should_run_at);
     }
 
     /** @test */
     public function it_can_schedule_itself_with_custom_columns()
     {
-        ColumnOperation::schedule(Carbon::now()->addDay(), [
+        $operation = ColumnOperation::schedule(Carbon::now()->addDay(), [
             'value' => 2500,
             'message' => 'Custom Columns',
         ]);
 
-        $operation = ColumnOperation::first();
         $this->assertEquals(Carbon::now()->addDay(), $operation->should_run_at);
         $this->assertEquals(2500, $operation->value);
         $this->assertEquals('Custom Columns', $operation->message);
@@ -79,21 +77,19 @@ class OperationTest extends TestCase
     /** @test */
     public function it_can_dispatch_itself_which_schedules_it_to_run_now()
     {
-        ExampleOperation::dispatch();
+        $operation = ExampleOperation::dispatch();
 
-        $operation = ExampleOperation::first();
         $this->assertEquals(Carbon::now(), $operation->should_run_at);
     }
 
     /** @test */
     public function it_can_dispatch_itself_to_run_now_with_custom_columns()
     {
-        ColumnOperation::dispatch([
+        $operation = ColumnOperation::dispatch([
             'value' => 5000,
             'message' => 'Dispatching Operations',
         ]);
 
-        $operation = ColumnOperation::first();
         $this->assertEquals(Carbon::now(), $operation->should_run_at);
         $this->assertEquals(5000, $operation->value);
         $this->assertEquals('Dispatching Operations', $operation->message);
