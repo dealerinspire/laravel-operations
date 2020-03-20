@@ -1,7 +1,6 @@
 {
     "name": "dealerinspire/laravel-operations",
     "description": "Operations allow you to schedule your jobs in a programmatic, database-driven way",
-    "version": "v0.1.0",
     "keywords": [
         "laravel-operations",
         "operations",
