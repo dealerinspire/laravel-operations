@@ -2,6 +2,7 @@
 
 namespace DealerInspire\Operations;
 
+use DealerInspire\Operations\Console\MigrationCreator;
 use Illuminate\Support\ServiceProvider;
 use DealerInspire\Operations\Console\QueueCommand;
 use DealerInspire\Operations\Console\MakeOperationCommand;
@@ -27,5 +28,11 @@ class OperationServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->alias(Operator::class, 'operator');
+
+        $this->app->when(MigrationCreator::class)
+            ->needs('$customStubPath')
+            ->give(function ($app) {
+                return $app->basePath('stubs');
+            });
     }
 }
