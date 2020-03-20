@@ -17,10 +17,14 @@ final class Operator
                     $operation->queue();
                 }
 
+                $operationJob = Operationjob::dispatch($operation);
+
                 if (property_exists($operation, 'queue')) {
-                    OperationJob::dispatch($operation)->onQueue($operation->queue);
-                } else {
-                    OperationJob::dispatch($operation);
+                    $operationJob->onQueue($operation->queue);
+                }
+
+                if (property_exists($operation, 'queueConnection')) {
+                    $operationJob->onConnection($operation->queueConnection);
                 }
             });
         }

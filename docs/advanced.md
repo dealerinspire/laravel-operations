@@ -22,3 +22,26 @@ class HighPriorityQueueOperation extends Operation
     }
 }
 ```
+
+## `queueConnection` Property
+
+If you have multiple queue connections in your app, some operations may need to run on different connections. You can specify a `public $queueConnection`
+property on your operation, the value of which will be used to specify the name of the connection it will run on.
+
+```php
+<?php
+
+namespace App\Operations;
+
+use DealerInspire\Operations\Operation;
+
+class RedisQueueOperation extends Operation
+{
+    public $queueConnection = 'redis';
+
+    public function run()
+    {
+        //
+    }
+}
+```

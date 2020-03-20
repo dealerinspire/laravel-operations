@@ -3,6 +3,7 @@
 namespace DealerInspire\Operations\Tests;
 
 use Carbon\Carbon;
+use DealerInspire\Operations\Tests\Operations\CustomConnectionOperation;
 use DealerInspire\Operations\Tests\Operations\CustomQueueOperation;
 use Illuminate\Support\Facades\Queue;
 use DealerInspire\Operations\OperationServiceProvider;
@@ -28,6 +29,7 @@ class TestCase extends OrchestraTestCase
             ExampleOperation::class,
             AnotherOperation::class,
             CustomQueueOperation::class,
+            CustomConnectionOperation::class,
         ]);
     }
 
