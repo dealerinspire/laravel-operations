@@ -1,5 +1,47 @@
 # Advanced Usage
 
+## Multiple Operation Classes, One Database Table
+
+Depending on the complexity of your operations, you may have multiple operation classes that have the exact same columns as another operation class.
+Instead of having multiple tables that are exactly the same, you can opt to create one database table with the necessary columns and then set the
+`protected $table` property on your `Operation` classes to point at that table.
+
+```php
+<?php
+
+namespace App\Operations;
+
+use DealerInspire\Operations\Operation;
+
+class FirstTable extends Operation
+{
+    protected $table = 'operations_table';
+
+    public function run()
+    {
+        //
+    }
+}
+```
+
+```php
+<?php
+
+namespace App\Operations;
+
+use DealerInspire\Operations\Operation;
+
+class SecondTable extends Operation
+{
+    protected $table = 'operations_table';
+
+    public function run()
+    {
+        //
+    }
+}
+```
+
 ## `queue` Property
 
 If you have multiple queues in your app, some operations may need to run on a few of these queues. You can specify a `public $queue` property on your operation,

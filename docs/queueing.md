@@ -51,4 +51,4 @@ _If you do use Laravel's scheduling function, don't forget to [set it up](https:
 
 If you ever need to do some logic or action while an event is being queued, you can use the `queue` hook function. This function is easy to abuse, so you can read more about what it is and how to avoid some potential pitfalls in [Queue Hook Function](/docs/queue-hook.md).
 
-Next: [Handling Failures Gracefully](/docs/failing.md)
+Next: [Ways to Schedule Operations](/docs/scheduling.md)

@@ -43,27 +43,47 @@ abstract class Operation extends Model
         throw new OperationCanceledException();
     }
 
+    /**
+     * @param Carbon|string $shouldRunAt
+     * @param array $attributes
+     * @return static
+     */
     public static function schedule($shouldRunAt, $attributes = [])
     {
         return static::create(array_merge(['should_run_at' => $shouldRunAt], $attributes));
     }
 
+    /**
+     * @param array $attributes
+     * @return static
+     */
     public static function dispatch($attributes = [])
     {
         return static::schedule(Carbon::now(), $attributes);
     }
 
+    /**
+     * @param array $attributes
+     * @return static
+     */
     public static function dispatchNow($attributes = [])
     {
         $operation = static::dispatch($attributes);
 
         $operation->started_run_at = Carbon::now();
 
+        if (method_exists($operation, 'queue')) {
+            $operation->queue();
+        }
+
         (new OperationJob($operation))->handle();
 
         return $operation;
     }
 
+    /**
+     * @return array
+     */
     public function tags()
     {
         return [

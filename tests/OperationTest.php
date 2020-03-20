@@ -101,6 +101,7 @@ class OperationTest extends TestCase
         $operation = ExampleOperation::dispatchNow();
 
         $this->assertTrue($operation->hasRun());
+        $this->assertTrue($operation->fresh()->hookedIntoQueue());
 
         // Ensure that the database record has all of the timestamps set correctly.
         $operation = ExampleOperation::first();

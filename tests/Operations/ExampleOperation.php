@@ -8,6 +8,10 @@ class ExampleOperation extends Operation
 {
     protected $hasRun = false;
 
+    protected $casts = [
+        'hooked_into_queue' => 'bool',
+    ];
+
     public function queue()
     {
         $this->hooked_into_queue = true;
