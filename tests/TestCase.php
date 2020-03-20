@@ -3,6 +3,8 @@
 namespace DealerInspire\Operations\Tests;
 
 use Carbon\Carbon;
+use DealerInspire\Operations\Tests\Operations\CustomConnectionOperation;
+use DealerInspire\Operations\Tests\Operations\CustomQueueOperation;
 use Illuminate\Support\Facades\Queue;
 use DealerInspire\Operations\OperationServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
@@ -26,6 +28,8 @@ class TestCase extends OrchestraTestCase
         $app['config']->set('operations.operations', [
             ExampleOperation::class,
             AnotherOperation::class,
+            CustomQueueOperation::class,
+            CustomConnectionOperation::class,
         ]);
     }
 
