@@ -52,7 +52,6 @@ class OperationJob implements ShouldQueue
 
     public function tags()
     {
-        $uniqueTag = get_class($this->operation).':'.$this->operation->id;
-        return ['operation', $uniqueTag];
+        return $this->operation->tags();
     }
 }

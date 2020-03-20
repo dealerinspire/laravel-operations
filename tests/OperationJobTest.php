@@ -9,6 +9,7 @@ use DealerInspire\Operations\Tests\Operations\ExampleOperation;
 use DealerInspire\Operations\Tests\Operations\StoppingOperation;
 use DealerInspire\Operations\Tests\Operations\CancelingOperation;
 use DealerInspire\Operations\Tests\Operations\DependantOperation;
+use DealerInspire\Operations\Tests\Operations\TaggedOperation;
 
 class OperationJobTest extends TestCase
 {
@@ -122,5 +123,21 @@ class OperationJobTest extends TestCase
             AnotherOperation::class.':456',
         ];
         $this->assertSame($expectedAnotherTags, $anotherOperationJob->tags());
+    }
+
+    /** @test */
+    public function it_uses_custom_tags_from_operation_instead_of_default_tags()
+    {
+        $taggedOperation = new TaggedOperation();
+        $taggedOperation->id = 123;
+        $taggedOperationJob = new OperationJob($taggedOperation);
+
+        $expectedTags = [
+            'custom-tags',
+            'foobar',
+            'tagged',
+        ];
+
+        $this->assertSame($expectedTags, $taggedOperationJob->tags());
     }
 }

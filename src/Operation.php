@@ -63,4 +63,12 @@ abstract class Operation extends Model
 
         return $operation;
     }
+
+    public function tags()
+    {
+        return [
+            'operation',
+            static::class.':'.$this->id,
+        ];
+    }
 }

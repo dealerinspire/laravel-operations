@@ -45,3 +45,33 @@ class RedisQueueOperation extends Operation
     }
 }
 ```
+
+## Custom Horizon Tags
+
+By default, operations are tagged with `operation` and `{Operation::class}:{id}`, which are used by Horizon to give you the ability to better track the operations
+that your system is processing. If you want to define your own custom tags, override the `tags()` function and return an array of strings. These strings will be
+the tags you see in Horizon.
+
+```php
+<?php
+
+namespace App\Operations;
+
+use DealerInspire\Operations\Operation;
+
+class TaggedOperation extends Operation
+{
+    public function run()
+    {
+        //
+    }
+
+    public function tags()
+    {
+        return [
+            'custom-tags',
+            'foobar',
+        ];
+    }
+}
+```
