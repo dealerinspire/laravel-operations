@@ -25,3 +25,5 @@ If an unhandled exception is encountered, the operation job will retry up to wha
 If the operation job was not able to successfully run the operation and an exception is still being thrown, your operation will become **stuck**. This simply means that the operation has a `started_run_at` timestamp set but it is not actually being run. Because the Operator will not start running an operation that has a `should_run_at` timestamp set, the operation will never finish running.
 
 This is why it is important to properly `stop()` or `cancel()` an operation if you are aware of an error case that you want to handle automatically.
+
+Next: [Advanced Usage](/docs/advanced.md)

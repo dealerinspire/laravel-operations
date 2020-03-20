@@ -3,6 +3,7 @@
 namespace DealerInspire\Operations\Tests;
 
 use Carbon\Carbon;
+use DealerInspire\Operations\Tests\Operations\CustomQueueOperation;
 use Illuminate\Support\Facades\Queue;
 use DealerInspire\Operations\OperationJob;
 use DealerInspire\Operations\Facades\Operator;
@@ -57,6 +58,19 @@ class OperatorTest extends TestCase
         $this->assertNotNull($exampleOperation->fresh()->started_run_at);
         $this->assertNotNull($firstAnotherOperation->fresh()->started_run_at);
         $this->assertNotNull($secondAnotherOperation->fresh()->started_run_at);
+    }
+
+    /** @test */
+    public function it_runs_operations_with_a_custom_queue_on_the_custom_queue_when_scheduled_and_queued()
+    {
+        $customQueueOperation = CustomQueueOperation::schedule(Carbon::now()->subMinutes(5));
+
+        Operator::queue();
+
+        Queue::assertPushedOn('custom', OperationJob::class);
+        Queue::assertPushed(OperationJob::class, function (OperationJob $job) use ($customQueueOperation) {
+            return $job->getOperation()->is($customQueueOperation);
+        });
     }
 
     /** @test */
