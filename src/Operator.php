@@ -17,7 +17,7 @@ final class Operator
                     $operation->queue();
                 }
 
-                $operationJob = Operationjob::dispatch($operation);
+                $operationJob = OperationJob::dispatch($operation);
 
                 if (property_exists($operation, 'queue')) {
                     $operationJob->onQueue($operation->queue);
